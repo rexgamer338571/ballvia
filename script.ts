@@ -152,6 +152,16 @@ const spawnArtURLPrefix: string = `${ballAPIURLPrefix}balls/`;
 const spawn_art: HTMLImageElement = document.querySelector("#spawn-art") as HTMLImageElement;
 const guessButton: HTMLButtonElement = document.querySelector("#guess-button") as HTMLButtonElement;
 const guess: HTMLInputElement = document.querySelector("#guess") as HTMLInputElement;
+
+guess.addEventListener('keypress', (event) => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        guessButton.click();
+    }
+});
+
+guessButton.addEventListener("click", check);
+
 const output: HTMLParagraphElement = document.querySelector("#output") as HTMLParagraphElement;
 
 let spawnHashes: Set<string>;
@@ -170,7 +180,7 @@ async function pickNew() {
     spawn_art.src = `${spawnArtURLPrefix}${currentHash}.png`
 }
 
-guessButton.addEventListener("click", async () => {
+async function check() {
     const sanitized = guess.value.replace(" ", "_").toLowerCase();
     if (!await checkHash(sanitized)) {
         output.innerHTML = "Wrong name!";
@@ -178,9 +188,10 @@ guessButton.addEventListener("click", async () => {
     }
 
     output.innerHTML = "Correct!";
+    guess.value = "";
 
     pickNew();
-});
+}
 
 function pickRandom(set: Set<string>) : string {
     const hash: string = Array.from(set)[Math.floor(Math.random() * set.size)];
