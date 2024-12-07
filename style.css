@@ -1,0 +1,35 @@
+:root {
+    --bg-color: #0D1F2D;
+    --hover-bg-color: #9EA3B0;
+    --text-color: #FAE1DF;
+    --border-color: #546A7B;
+}
+
+* {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.container > * {
+    margin: 15px;
+}
+
+input, button {
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: large;
+
+    transition: 300ms;
+}
+
+button:hover {
+    background-color: var(--hover-bg-color);
+}
